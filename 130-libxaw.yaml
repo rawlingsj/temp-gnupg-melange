@@ -1,0 +1,51 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/libxaw/APKBUILD
+package:
+    name: libxaw
+    version: 1.0.14
+    epoch: 0
+    description: X Athena Widget Set
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: MIT
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - libxmu-dev
+            - libxpm-dev
+            - libxext-dev
+            - libx11-dev
+            - util-macros
+            - xorgproto
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 76aef98ea3df92615faec28004b5ce4e5c6855e716fa16de40c32030722a6f8e
+        uri: https://www.x.org/releases/individual/lib/libXaw-${{package.version}}.tar.bz2
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: libxaw-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - libxaw
+      description: libxaw dev
+    - name: libxaw-doc
+      pipeline:
+        - uses: split/manpages
+      description: libxaw manpages

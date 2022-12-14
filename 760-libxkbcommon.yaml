@@ -1,0 +1,67 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/libxkbcommon/APKBUILD
+package:
+    name: libxkbcommon
+    version: 1.4.1
+    epoch: 0
+    description: keyboard handling library
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: MIT
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - bison
+            - libxcb-dev
+            - libxml2-dev
+            - meson
+            - wayland-dev
+            - wayland-protocols
+            - xkeyboard-config-dev
+            - libxkbcommon-x11-dev
+            - xkeyboard-config
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 3b86670dd91441708dedc32bc7f684a034232fd4a9bb209f53276c9783e9d40e
+        uri: https://github.com/xkbcommon/libxkbcommon/archive/xkbcommon-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: libxkbcommon-static
+      pipeline:
+        - uses: split/static
+      description: libxkbcommon static
+    - name: libxkbcommon-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - libxkbcommon
+            - libxkbcommon-x11
+            - xkeyboard-config
+      description: libxkbcommon dev
+    - name: libxkbcommon-x11
+      pipeline:
+        - uses: split/FIXME
+      description: libxkbcommon FIXME
+    - name: xkbcli
+      pipeline:
+        - runs: FIXME
+    - name: xkbcli-doc
+      pipeline:
+        - uses: split/manpages
+      description: libxkbcommon manpages

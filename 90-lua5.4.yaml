@@ -1,0 +1,59 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/lua5.4/APKBUILD
+package:
+    name: lua5.4
+    version: 5.4.4
+    epoch: 0
+    description: Powerful light-weight programming language
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: MIT
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - libtool
+            - autoconf
+            - automake
+            - readline-dev
+            - lua5.4-dev
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 164c7849653b80ae67bec4b7473b884bf5cc8d2dca05653475ec2ed27b9ebf61
+        uri: https://www.lua.org/ftp/lua-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: lua5.4-dbg
+      pipeline:
+        - uses: split/FIXME
+      description: lua5.4 FIXME
+    - name: lua5.4-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - lua5.4
+            - lua5.4
+      description: lua5.4 dev
+    - name: lua5.4-doc
+      pipeline:
+        - uses: split/manpages
+      description: lua5.4 manpages
+    - name: lua5.4-libs
+      pipeline:
+        - uses: split/FIXME
+      description: lua5.4 FIXME

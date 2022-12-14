@@ -1,0 +1,68 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/at-spi2-core/APKBUILD
+package:
+    name: at-spi2-core
+    version: 2.46.0
+    epoch: 0
+    description: Protocol definitions and daemon for D-Bus at-spi
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: LGPL-2.0-or-later
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - dbus-dev
+            - glib-dev
+            - gobject-introspection-dev
+            - gtk-doc
+            - libxml2-dev
+            - libxtst-dev
+            - meson
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: aa0c86c79f7a8d67bae49a5b7a5ab08430c608cffe6e33bf47a72f41ab03c3d0
+        uri: https://download.gnome.org/sources/at-spi2-core/2.46/at-spi2-core-${{package.version}}.tar.xz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: at-spi2-core-dbg
+      pipeline:
+        - uses: split/FIXME
+      description: at-spi2-core FIXME
+    - name: at-spi2-core-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - at-spi2-core
+      description: at-spi2-core dev
+    - name: at-spi2-core-lang
+      pipeline:
+        - uses: split/FIXME
+      description: at-spi2-core FIXME
+    - name: at-spi2-core-doc
+      pipeline:
+        - uses: split/manpages
+      description: at-spi2-core manpages
+    - name: libatk-1.0
+      pipeline:
+        - uses: split/FIXME
+      description: at-spi2-core FIXME
+    - name: libatk-bridge-2.0
+      pipeline:
+        - uses: split/FIXME
+      description: at-spi2-core FIXME

@@ -1,0 +1,142 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/mesa/APKBUILD
+package:
+    name: mesa
+    version: 22.2.5
+    epoch: 0
+    description: Mesa DRI OpenGL library
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: MIT SGI-B-2.0 BSL-1.0
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - libdrm-dev
+            - libxext-dev
+            - libxdamage-dev
+            - libxcb-dev
+            - libxshmfence-dev
+            - bison
+            - eudev-dev
+            - expat-dev
+            - findutils
+            - flex
+            - gettext
+            - elfutils-dev
+            - glslang-dev
+            - libtool
+            - libxfixes-dev
+            - libva-dev
+            - libvdpau-dev
+            - libx11-dev
+            - libxml2-dev
+            - libxrandr-dev
+            - libxxf86vm-dev
+            - llvm15-dev
+            - meson
+            - py3-mako
+            - python3
+            - vulkan-loader-dev
+            - wayland-dev
+            - wayland-protocols
+            - xorgproto
+            - zlib-dev
+            - zstd-dev
+            - libdrm-dev
+            - libxext-dev
+            - libxdamage-dev
+            - libxcb-dev
+            - libxshmfence-dev
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 850f063146f8ebb262aec04f666c2c1e5623f2a1987dda24e4361b17b912c73b
+        uri: https://mesa.freedesktop.org/archive/mesa-${{package.version}}.tar.xz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: mesa-dbg
+      pipeline:
+        - uses: split/FIXME
+      description: mesa FIXME
+    - name: mesa-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - mesa
+            - libdrm-dev
+            - libxext-dev
+            - libxdamage-dev
+            - libxcb-dev
+            - libxshmfence-dev
+      description: mesa dev
+    - name: mesa-dri-gallium
+      pipeline:
+        - uses: split/FIXME
+      description: mesa FIXME
+    - name: mesa-va-gallium
+      pipeline:
+        - uses: split/FIXME
+      description: mesa FIXME
+    - name: mesa-vdpau-gallium
+      pipeline:
+        - uses: split/FIXME
+      description: mesa FIXME
+    - name: mesa-glapi
+      pipeline:
+        - uses: split/FIXME
+      description: mesa FIXME
+    - name: mesa-egl
+      pipeline:
+        - uses: split/FIXME
+      description: mesa FIXME
+    - name: mesa-gl
+      pipeline:
+        - uses: split/FIXME
+      description: mesa FIXME
+    - name: mesa-gles
+      pipeline:
+        - uses: split/FIXME
+      description: mesa FIXME
+    - name: mesa-xatracker
+      pipeline:
+        - uses: split/FIXME
+      description: mesa FIXME
+    - name: mesa-osmesa
+      pipeline:
+        - uses: split/FIXME
+      description: mesa FIXME
+    - name: mesa-gbm
+      pipeline:
+        - uses: split/FIXME
+      description: mesa FIXME
+    - name: mesa-vulkan-ati
+      pipeline:
+        - uses: split/FIXME
+      description: mesa FIXME
+    - name: mesa-vulkan-swrast
+      pipeline:
+        - uses: split/FIXME
+      description: mesa FIXME
+    - name: mesa-vulkan-layers
+      pipeline:
+        - uses: split/FIXME
+      description: mesa FIXME
+    - name: mesa-libd3dadapter9
+      pipeline:
+        - uses: split/FIXME
+      description: mesa FIXME

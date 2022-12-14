@@ -1,0 +1,64 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/gcr/APKBUILD
+package:
+    name: gcr
+    version: 3.41.1
+    epoch: 0
+    description: library for bits of crypto UI and parsing
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: LGPL-2.0-or-later
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - glib-dev
+            - gobject-introspection-dev
+            - gtk+3.0-dev
+            - libgcrypt-dev
+            - libsecret-dev
+            - libxslt
+            - meson
+            - gtk-doc
+            - openssh-client
+            - p11-kit-dev
+            - vala
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: bb7128a3c2febbfee9c03b90d77d498d0ceb237b0789802d60185c71c4bea24f
+        uri: https://download.gnome.org/sources/gcr/3.41/gcr-${{package.version}}.tar.xz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: gcr-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - gcr
+      description: gcr dev
+    - name: gcr-lang
+      pipeline:
+        - uses: split/FIXME
+      description: gcr FIXME
+    - name: gcr-base
+      pipeline:
+        - uses: split/FIXME
+      description: gcr FIXME
+    - name: gcr-ssh-agent
+      pipeline:
+        - uses: split/FIXME
+      description: gcr FIXME

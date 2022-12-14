@@ -1,0 +1,38 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/udev-init-scripts/APKBUILD
+package:
+    name: udev-init-scripts
+    version: "35"
+    epoch: 0
+    description: udev startup scripts for openrc
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: GPL-2.0-only
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 51eef30ef99f7f184aa403d190c105c5565e48c1c2d35b1b9f9f052c099fe366
+        uri: https://gitweb.gentoo.org/proj/udev-gentoo-scripts.git/snapshot/udev-gentoo-scripts-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: udev-init-scripts-openrc
+      pipeline:
+        - uses: split/FIXME
+      description: udev-init-scripts FIXME

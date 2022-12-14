@@ -1,0 +1,55 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/libva/APKBUILD
+package:
+    name: libva
+    version: 2.16.0
+    epoch: 0
+    description: Video Acceleration (VA) API for Linux
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: MIT
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - libx11-dev
+            - libxext-dev
+            - libxfixes-dev
+            - libdrm-dev
+            - meson
+            - wayland-dev
+            - libx11-dev
+            - libxext-dev
+            - libxfixes-dev
+            - libdrm-dev
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 766edf51fd86efe9e836a4467d4ec7c3af690a3c601b3c717237cee856302279
+        uri: https://github.com/intel/libva/archive/${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: libva-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - libva
+            - libx11-dev
+            - libxext-dev
+            - libxfixes-dev
+            - libdrm-dev
+      description: libva dev

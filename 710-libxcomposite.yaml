@@ -1,0 +1,52 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/libxcomposite/APKBUILD
+package:
+    name: libxcomposite
+    version: 0.4.6
+    epoch: 0
+    description: X11 Composite extension library
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: custom
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - xorgproto
+            - libx11-dev
+            - libxext-dev
+            - libxfixes-dev
+            - util-macros
+            - libxext-dev
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: fe40bcf0ae1a09070eba24088a5eb9810efe57453779ec1e20a55080c6dc2c87
+        uri: https://www.x.org/releases/individual/lib/libXcomposite-${{package.version}}.tar.xz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: libxcomposite-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - libxcomposite
+            - libxext-dev
+      description: libxcomposite dev
+    - name: libxcomposite-doc
+      pipeline:
+        - uses: split/manpages
+      description: libxcomposite manpages

@@ -1,0 +1,40 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/perl-uri/APKBUILD
+package:
+    name: perl-uri
+    version: "5.17"
+    epoch: 0
+    description: Uniform Resource Identifiers (absolute and relative)
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: GPL-1.0-or-later OR Artistic-1.0-Perl
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - perl-dev
+            - perl
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 5f7e42b769cb27499113cfae4b786c37d49e7c7d32dbb469602cd808308568f8
+        uri: https://cpan.metacpan.org/authors/id/O/OA/OALDERS/URI-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: perl-uri-doc
+      pipeline:
+        - uses: split/manpages
+      description: perl-uri manpages

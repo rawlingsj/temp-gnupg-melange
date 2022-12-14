@@ -1,0 +1,52 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/pinentry/APKBUILD
+package:
+    name: pinentry
+    version: 1.2.1
+    epoch: 0
+    description: Collection of simple PIN or passphrase entry dialogs which utilize the Assuan protocol
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: GPL-2.0-or-later
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - ncurses-dev
+            - libcap-dev
+            - libgpg-error-dev
+            - libassuan-dev
+            - gcr-dev
+            - libsecret-dev
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 457a185e5a85238fb945a955dc6352ab962dc8b48720b62fc9fa48c7540a4067
+        uri: https://gnupg.org/ftp/gcrypt/pinentry/pinentry-${{package.version}}.tar.bz2
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: pinentry-doc
+      pipeline:
+        - uses: split/manpages
+      description: pinentry manpages
+    - name: pinentry-tty
+      pipeline:
+        - uses: split/FIXME
+      description: pinentry FIXME
+    - name: pinentry-curses-ss
+      pipeline:
+        - uses: split/FIXME
+      description: pinentry FIXME

@@ -1,0 +1,35 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/py3-tz/APKBUILD
+package:
+    name: py3-tz
+    version: "2022.6"
+    epoch: 0
+    description: Python3 definitions of world timezone
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: MIT
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - py3-setuptools
+            - python3
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: e89512406b793ca39f5971bc999cc538ce125c0e51c27941bef4568b460095e2
+        uri: https://pypi.python.org/packages/source/p/pytz/pytz-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install

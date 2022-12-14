@@ -1,0 +1,35 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/py3-sphinxcontrib-qthelp/APKBUILD
+package:
+    name: py3-sphinxcontrib-qthelp
+    version: 1.0.3
+    epoch: 0
+    description: Sphinx qthelp extension
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: BSD-2-Clause
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - py3-setuptools
+            - python3
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 4c33767ee058b70dba89a6fc5c1892c0d57a54be67ddd3e7875a18d14cba5a72
+        uri: https://files.pythonhosted.org/packages/source/s/sphinxcontrib-qthelp/sphinxcontrib-qthelp-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install

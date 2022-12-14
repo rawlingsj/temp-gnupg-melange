@@ -1,0 +1,52 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/fuse/APKBUILD
+package:
+    name: fuse
+    version: 2.9.9
+    epoch: 0
+    description: A library that makes it possible to implement a filesystem in a userspace program.
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: GPL-2.0-only LGPL-2.1-only
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - gettext-dev
+            - fuse-common
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: d0e69d5d608cc22ff4843791ad097f554dd32540ddc9bed7638cc6fea7c1b4b5
+        uri: https://github.com/libfuse/libfuse/releases/download/fuse-${{package.version}}/fuse-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: fuse-static
+      pipeline:
+        - uses: split/static
+      description: fuse static
+    - name: fuse-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - fuse
+            - fuse-common
+      description: fuse dev
+    - name: fuse-doc
+      pipeline:
+        - uses: split/manpages
+      description: fuse manpages

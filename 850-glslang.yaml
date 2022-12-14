@@ -1,0 +1,56 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/glslang/APKBUILD
+package:
+    name: glslang
+    version: 11.12.0
+    epoch: 0
+    description: Khronos reference front-end for GLSL, ESSL, and sample SPIR-V generator
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: BSD-3-Clause
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - cmake
+            - samurai
+            - python3
+            - bison
+            - spirv-tools-dev
+            - glslang-dev
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 7795a97450fecd9779f3d821858fbc2d1a3bf1dd602617d95b685ccbcabc302f
+        uri: https://github.com/KhronosGroup/glslang/archive/refs/tags/${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: glslang-static
+      pipeline:
+        - uses: split/static
+      description: glslang static
+    - name: glslang-libs
+      pipeline:
+        - uses: split/FIXME
+      description: glslang FIXME
+    - name: glslang-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - glslang
+            - glslang
+      description: glslang dev

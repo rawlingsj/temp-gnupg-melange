@@ -1,0 +1,39 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/py3-requests/APKBUILD
+package:
+    name: py3-requests
+    version: 2.28.1
+    epoch: 0
+    description: HTTP request library for Python3
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: Apache-2.0
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - py3-setuptools
+            - py3-certifi
+            - py3-charset-normalizer
+            - py3-idna
+            - py3-urllib3
+            - python3
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 7c5599b102feddaa661c826c56ab4fee28bfd17f5abca1ebbe3e7f19d7c97983
+        uri: https://files.pythonhosted.org/packages/source/r/requests/requests-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install

@@ -1,0 +1,55 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/xkeyboard-config/APKBUILD
+package:
+    name: xkeyboard-config
+    version: "2.37"
+    epoch: 0
+    description: X keyboard configuration files
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: MIT
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - gettext
+            - meson
+            - perl
+            - libxslt
+            - xkeyboard-config-dev
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 3f578ae674d9a01a6d0bba23f3ff55b9e07c335e7bb81e9eb192eb8efde0176b
+        uri: https://github.com/freedesktop/xkeyboard-config/archive/refs/tags/xkeyboard-config-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: xkeyboard-config-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - xkeyboard-config
+            - xkeyboard-config
+      description: xkeyboard-config dev
+    - name: xkeyboard-config-doc
+      pipeline:
+        - uses: split/manpages
+      description: xkeyboard-config manpages
+    - name: xkeyboard-config-lang
+      pipeline:
+        - uses: split/FIXME
+      description: xkeyboard-config FIXME

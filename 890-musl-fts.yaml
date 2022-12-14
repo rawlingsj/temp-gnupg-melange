@@ -1,0 +1,44 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/musl-fts/APKBUILD
+package:
+    name: musl-fts
+    version: 1.2.7
+    epoch: 0
+    description: Provides the fts(3) functions, which are missing in musl libc
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: BSD-3-Clause
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - automake
+            - autoconf
+            - libtool
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 49ae567a96dbab22823d045ffebe0d6b14b9b799925e9ca9274d47d26ff482a6
+        uri: https://github.com/void-linux/musl-fts/archive/refs/tags/v${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: musl-fts-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - musl-fts
+      description: musl-fts dev

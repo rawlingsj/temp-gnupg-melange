@@ -1,0 +1,53 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/shared-mime-info/APKBUILD
+package:
+    name: shared-mime-info
+    version: "2.2"
+    epoch: 0
+    description: Freedesktop.org Shared MIME Info
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: GPL-2.0-or-later
+    scriptlets:
+        trigger:
+            script: FIXME
+            paths:
+                - FIXME
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - meson
+            - itstool
+            - libxml2-utils
+            - xmlto
+            - libxml2-dev
+            - glib-dev
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: bcf5d552318136cf7b3ae259975f414fbcdc9ebce000c87cf1f0901ff14e619f
+        uri: https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/${{package.version}}/shared-mime-info-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: shared-mime-info-doc
+      pipeline:
+        - uses: split/manpages
+      description: shared-mime-info manpages
+    - name: shared-mime-info-lang
+      pipeline:
+        - uses: split/FIXME
+      description: shared-mime-info FIXME

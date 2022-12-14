@@ -1,0 +1,42 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/itstool/APKBUILD
+package:
+    name: itstool
+    version: 2.0.7
+    epoch: 0
+    description: ITS-based XML translation tool
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: GPL-3.0-or-later
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - autoconf
+            - automake
+            - py3-libxml2
+            - python3
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: fba78a37dc3535e4686c7f57407b97d03c676e3a57beac5fb2315162b0cc3176
+        uri: https://github.com/itstool/itstool/archive/${{package.version}}/itstool-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: itstool-doc
+      pipeline:
+        - uses: split/manpages
+      description: itstool manpages

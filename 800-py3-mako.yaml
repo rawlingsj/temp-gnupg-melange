@@ -1,0 +1,36 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/py3-mako/APKBUILD
+package:
+    name: py3-mako
+    version: 1.2.4
+    epoch: 0
+    description: Python3 fast templating language
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: MIT
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - py3-setuptools
+            - python3
+            - py3-markupsafe
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: d60a3903dc3bb01a18ad6a89cdbe2e4eadc69c0bc8ef1e3773ba53d44c3f7a34
+        uri: https://files.pythonhosted.org/packages/source/M/Mako/Mako-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install

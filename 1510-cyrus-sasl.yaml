@@ -1,0 +1,96 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/cyrus-sasl/APKBUILD
+package:
+    name: cyrus-sasl
+    version: 2.1.28
+    epoch: 0
+    description: Cyrus Simple Authentication Service Layer (SASL)
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: custom
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - gdbm-dev
+            - openssl-dev
+            - heimdal-dev
+            - py3-sphinx
+            - sqlite-dev
+            - automake
+            - autoconf
+            - libtool
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 7ccfc6abd01ed67c1a0924b353e526f1b766b21f42d4562ee635a8ebfc5bb38c
+        uri: https://github.com/cyrusimap/cyrus-sasl/releases/download/cyrus-sasl-${{package.version}}/cyrus-sasl-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: cyrus-sasl-static
+      pipeline:
+        - uses: split/static
+      description: cyrus-sasl static
+    - name: cyrus-sasl-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - cyrus-sasl
+      description: cyrus-sasl dev
+    - name: cyrus-sasl-doc
+      pipeline:
+        - uses: split/manpages
+      description: cyrus-sasl manpages
+    - name: cyrus-sasl-openrc
+      pipeline:
+        - uses: split/FIXME
+      description: cyrus-sasl FIXME
+    - name: libsasl
+      pipeline:
+        - runs: FIXME
+    - name: cyrus-sasl-gssapiv2
+      pipeline:
+        - uses: split/FIXME
+      description: cyrus-sasl FIXME
+    - name: cyrus-sasl-gs2
+      pipeline:
+        - uses: split/FIXME
+      description: cyrus-sasl FIXME
+    - name: cyrus-sasl-scram
+      pipeline:
+        - uses: split/FIXME
+      description: cyrus-sasl FIXME
+    - name: cyrus-sasl-ntlm
+      pipeline:
+        - uses: split/FIXME
+      description: cyrus-sasl FIXME
+    - name: cyrus-sasl-crammd5
+      pipeline:
+        - uses: split/FIXME
+      description: cyrus-sasl FIXME
+    - name: cyrus-sasl-digestmd5
+      pipeline:
+        - uses: split/FIXME
+      description: cyrus-sasl FIXME
+    - name: cyrus-sasl-login
+      pipeline:
+        - uses: split/FIXME
+      description: cyrus-sasl FIXME
+    - name: cyrus-sasl-sql
+      pipeline:
+        - uses: split/FIXME
+      description: cyrus-sasl FIXME

@@ -1,0 +1,51 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/py3-sphinx/APKBUILD
+package:
+    name: py3-sphinx
+    version: 5.3.0
+    epoch: 0
+    description: Python Documentation Generator
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: BSD-2-Clause
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - py3-gpep517
+            - py3-flit-core
+            - py3-installer
+            - py3-babel
+            - py3-docutils
+            - py3-imagesize
+            - py3-jinja2
+            - py3-packaging
+            - py3-pygments
+            - py3-requests
+            - py3-snowballstemmer
+            - py3-alabaster
+            - py3-sphinxcontrib-applehelp
+            - py3-sphinxcontrib-devhelp
+            - py3-sphinxcontrib-htmlhelp
+            - py3-sphinxcontrib-jsmath
+            - py3-sphinxcontrib-serializinghtml
+            - py3-sphinxcontrib-qthelp
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 1f175cb0dd4c92728742f6f182c1b8f40e31a0c84efbb8e659b1e29d544fc7f8
+        uri: https://github.com/sphinx-doc/sphinx/archive/v${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install

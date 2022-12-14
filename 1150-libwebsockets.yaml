@@ -1,0 +1,59 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/libwebsockets/APKBUILD
+package:
+    name: libwebsockets
+    version: 4.3.2
+    epoch: 0
+    description: C library for lightweight websocket clients and servers
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: MIT
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - cmake
+            - linux-headers
+            - openssl-dev
+            - zlib-dev
+            - libuv-dev
+            - samurai
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 6a85a1bccf25acc7e8e5383e4934c9b32a102880d1e4c37c70b27ae2a42406e1
+        uri: https://github.com/warmcat/libwebsockets/archive/v${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: libwebsockets-doc
+      pipeline:
+        - uses: split/manpages
+      description: libwebsockets manpages
+    - name: libwebsockets-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - libwebsockets
+      description: libwebsockets dev
+    - name: libwebsockets-test
+      pipeline:
+        - uses: split/FIXME
+      description: libwebsockets FIXME
+    - name: libwebsockets-evlib_uv
+      pipeline:
+        - uses: split/FIXME
+      description: libwebsockets FIXME

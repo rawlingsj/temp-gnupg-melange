@@ -1,0 +1,33 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/hicolor-icon-theme/APKBUILD
+package:
+    name: hicolor-icon-theme
+    version: "0.17"
+    epoch: 0
+    description: Freedesktop.org Hicolor icon theme
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: GPL-2.0-only
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 317484352271d18cbbcfac3868eab798d67fff1b8402e740baa6ff41d588a9d8
+        uri: https://icon-theme.freedesktop.org/releases/hicolor-icon-theme-${{package.version}}.tar.xz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install

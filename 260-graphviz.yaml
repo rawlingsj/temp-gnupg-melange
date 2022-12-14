@@ -1,0 +1,113 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/graphviz/APKBUILD
+package:
+    name: graphviz
+    version: 7.0.4
+    epoch: 0
+    description: Graph Visualization Tools
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: EPL-1.0
+    scriptlets:
+        trigger:
+            script: FIXME
+            paths:
+                - FIXME
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - cairo-dev
+            - expat-dev
+            - fontconfig-dev
+            - freetype-dev
+            - gd-dev
+            - gmp-dev
+            - libjpeg-turbo-dev
+            - libpng-dev
+            - libsm-dev
+            - libxext-dev
+            - pango-dev
+            - python3-dev
+            - zlib-dev
+            - bison
+            - flex
+            - libltdl
+            - libxaw-dev
+            - lua5.4-dev
+            - m4
+            - swig
+            - tcl
+            - cairo-dev
+            - expat-dev
+            - fontconfig-dev
+            - freetype-dev
+            - gd-dev
+            - gmp-dev
+            - libjpeg-turbo-dev
+            - libpng-dev
+            - libsm-dev
+            - libxext-dev
+            - pango-dev
+            - python3-dev
+            - zlib-dev
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 224ba7e956c3a7be0d1c377f957fd5341d769427c3a13ba26b88cd64680b1050
+        uri: https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/${{package.version}}/graphviz-${{package.version}}.tar.xz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: graphviz-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - graphviz
+            - cairo-dev
+            - expat-dev
+            - fontconfig-dev
+            - freetype-dev
+            - gd-dev
+            - gmp-dev
+            - libjpeg-turbo-dev
+            - libpng-dev
+            - libsm-dev
+            - libxext-dev
+            - pango-dev
+            - python3-dev
+            - zlib-dev
+      description: graphviz dev
+    - name: graphviz-libs
+      pipeline:
+        - uses: split/FIXME
+      description: graphviz FIXME
+    - name: graphviz-doc
+      pipeline:
+        - uses: split/manpages
+      description: graphviz manpages
+    - name: py3-gv
+      pipeline:
+        - uses: split/FIXME
+      description: graphviz FIXME
+    - name: lua5.4-graphviz
+      pipeline:
+        - uses: split/FIXME
+      description: graphviz FIXME
+    - name: graphviz-graphs
+      pipeline:
+        - uses: split/FIXME
+      description: graphviz FIXME

@@ -1,0 +1,124 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/gtk+3.0/APKBUILD
+package:
+    name: gtk+3.0
+    version: 3.24.35
+    epoch: 0
+    description: The GTK+ Toolkit (v3)
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: LGPL-2.1-or-later
+    scriptlets:
+        trigger:
+            script: FIXME
+            paths:
+                - FIXME
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - at-spi2-core-dev
+            - gdk-pixbuf-dev
+            - glib-dev
+            - libepoxy-dev
+            - libxext-dev
+            - libxi-dev
+            - libxinerama-dev
+            - libxkbcommon-dev
+            - wayland-libs-client
+            - wayland-libs-cursor
+            - wayland-protocols
+            - hicolor-icon-theme
+            - cairo-dev
+            - cups-dev
+            - expat-dev
+            - fontconfig-dev
+            - gettext-dev
+            - gobject-introspection-dev
+            - hicolor-icon-theme
+            - iso-codes-dev
+            - libice-dev
+            - libx11-dev
+            - libxcomposite-dev
+            - libxcursor-dev
+            - libxdamage-dev
+            - libxfixes-dev
+            - libxrandr-dev
+            - meson
+            - pango-dev
+            - tiff-dev
+            - wayland-dev
+            - zlib-dev
+            - at-spi2-core-dev
+            - gdk-pixbuf-dev
+            - glib-dev
+            - libepoxy-dev
+            - libxext-dev
+            - libxi-dev
+            - libxinerama-dev
+            - libxkbcommon-dev
+            - wayland-libs-client-dev
+            - wayland-libs-cursor-dev
+            - wayland-protocols-dev
+            - shared-mime-info
+            - gtk-update-icon-cache
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 8b08020b183729fbc14c959c46124de10e43563334f4811a283ded0e8ba5463e
+        uri: https://gitlab.gnome.org/GNOME/gtk/-/archive/${{package.version}}/gtk-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: gtk+3.0-dbg
+      pipeline:
+        - uses: split/FIXME
+      description: gtk+3.0 FIXME
+    - name: gtk+3.0-demo
+      pipeline:
+        - uses: split/FIXME
+      description: gtk+3.0 FIXME
+    - name: gtk+3.0-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - gtk+3.0
+            - at-spi2-core-dev
+            - gdk-pixbuf-dev
+            - glib-dev
+            - libepoxy-dev
+            - libxext-dev
+            - libxi-dev
+            - libxinerama-dev
+            - libxkbcommon-dev
+            - wayland-libs-client
+            - wayland-libs-cursor
+            - wayland-protocols
+            - shared-mime-info
+            - gtk-update-icon-cache
+      description: gtk+3.0 dev
+    - name: gtk+3.0-doc
+      pipeline:
+        - uses: split/manpages
+      description: gtk+3.0 manpages
+    - name: gtk+3.0-lang
+      pipeline:
+        - uses: split/FIXME
+      description: gtk+3.0 FIXME
+    - name: gtk-update-icon-cache
+      pipeline:
+        - uses: split/FIXME
+      description: gtk+3.0 FIXME

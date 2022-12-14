@@ -1,0 +1,104 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/gnupg/APKBUILD
+package:
+    name: gnupg
+    version: 2.2.40
+    epoch: 0
+    description: GNU Privacy Guard 2 - meta package for full GnuPG suite
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: GPL-3.0-or-later
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - autoconf
+            - automake
+            - bzip2-dev
+            - gettext-dev
+            - gnutls-dev
+            - libassuan-dev
+            - libgcrypt-dev
+            - libgpg-error-dev
+            - libksba-dev
+            - libtool
+            - libusb-dev
+            - npth-dev
+            - openldap-dev
+            - pinentry
+            - sqlite-dev
+            - texinfo
+            - zlib-dev
+            - gpg
+            - gpg-agent
+            - gpg-wks-server
+            - gpgsm
+            - gpgv
+            - gnupg-dirmngr
+            - gnupg-utils
+            - gnupg-wks-client
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 1164b29a75e8ab93ea15033300149e1872a7ef6bdda3d7c78229a735f8204c28
+        uri: https://gnupg.org/ftp/gcrypt/gnupg/gnupg-${{package.version}}.tar.bz2
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: gnupg-doc
+      pipeline:
+        - uses: split/manpages
+      description: gnupg manpages
+    - name: gnupg-lang
+      pipeline:
+        - uses: split/FIXME
+      description: gnupg FIXME
+    - name: gnupg-dirmngr
+      pipeline:
+        - uses: split/FIXME
+      description: gnupg FIXME
+    - name: gnupg-gpgconf
+      pipeline:
+        - uses: split/FIXME
+      description: gnupg FIXME
+    - name: gnupg-scdaemon
+      pipeline:
+        - uses: split/FIXME
+      description: gnupg FIXME
+    - name: gnupg-wks-client
+      pipeline:
+        - uses: split/FIXME
+      description: gnupg FIXME
+    - name: gpg
+      pipeline:
+        - runs: FIXME
+    - name: gpg-agent
+      pipeline:
+        - uses: split/FIXME
+      description: gnupg FIXME
+    - name: gpg-wks-server
+      pipeline:
+        - uses: split/FIXME
+      description: gnupg FIXME
+    - name: gpgsm
+      pipeline:
+        - runs: FIXME
+    - name: gpgv
+      pipeline:
+        - runs: FIXME
+    - name: gnupg-utils
+      pipeline:
+        - uses: split/FIXME
+      description: gnupg FIXME

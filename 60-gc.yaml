@@ -1,0 +1,53 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/gc/APKBUILD
+package:
+    name: gc
+    version: 8.2.2
+    epoch: 0
+    description: garbage collector for C and C++
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: custom:GPL-like
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - linux-headers
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: f30107bcb062e0920a790ffffa56d9512348546859364c23a14be264b38836a0
+        uri: https://github.com/ivmai/bdwgc/releases/download/v${{package.version}}/gc-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: gc-dbg
+      pipeline:
+        - uses: split/FIXME
+      description: gc FIXME
+    - name: gc-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - gc
+      description: gc dev
+    - name: gc-doc
+      pipeline:
+        - uses: split/manpages
+      description: gc manpages
+    - name: libgc++
+      pipeline:
+        - runs: FIXME

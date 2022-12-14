@@ -1,0 +1,65 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/guile/APKBUILD
+package:
+    name: guile
+    version: 3.0.8
+    epoch: 0
+    description: portable, embeddable Scheme implementation written in C
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: LGPL-3.0-or-later AND GPL-3.0-or-later
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - gmp-dev
+            - libtool
+            - ncurses-dev
+            - texinfo
+            - libunistring-dev
+            - libffi-dev
+            - gc-dev
+            - readline-dev
+            - guile-dev
+            - gc-dev
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: f25ae0c26e911af1b5005292d4f56621879f74d6958b30741cf67d8b6feb2016
+        uri: https://ftp.gnu.org/gnu/guile/guile-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: guile-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - guile
+            - guile
+            - gc-dev
+      description: guile dev
+    - name: guile-doc
+      pipeline:
+        - uses: split/manpages
+      description: guile manpages
+    - name: guile-libs
+      pipeline:
+        - uses: split/FIXME
+      description: guile FIXME
+    - name: guile-readline
+      pipeline:
+        - uses: split/FIXME
+      description: guile FIXME

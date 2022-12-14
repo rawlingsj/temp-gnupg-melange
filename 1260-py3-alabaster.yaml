@@ -1,0 +1,35 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/py3-alabaster/APKBUILD
+package:
+    name: py3-alabaster
+    version: 0.7.12
+    epoch: 0
+    description: Modified Kr Sphinx doc theme
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: BSD-3-Clause
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - py3-setuptools
+            - python3
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 2f413c2a7e16f6b18d38f86a236b89e50e5f6ca79094ff948e5e58828f95c430
+        uri: https://github.com/bitprophet/alabaster/archive/${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install

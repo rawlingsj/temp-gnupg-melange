@@ -1,0 +1,78 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/heimdal/APKBUILD
+package:
+    name: heimdal
+    version: 7.8.0
+    epoch: 0
+    description: Iplementation of Kerberos 5
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: BSD-3-Clause
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - openssl-dev
+            - e2fsprogs-dev
+            - autoconf
+            - automake
+            - bash
+            - gawk
+            - libtool
+            - ncurses-dev
+            - perl
+            - readline-dev
+            - sqlite-dev
+            - texinfo
+            - perl-json
+            - python3
+            - gdbm-dev
+            - openssl-dev
+            - e2fsprogs-dev
+            - krb5-conf
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: fd87a207846fa650fd377219adc4b8a8193e55904d8a752c2c3715b4155d8d38
+        uri: https://github.com/heimdal/heimdal/releases/download/heimdal-${{package.version}}/heimdal-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: heimdal-doc
+      pipeline:
+        - uses: split/manpages
+      description: heimdal manpages
+    - name: heimdal-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - heimdal
+            - openssl-dev
+            - e2fsprogs-dev
+            - krb5-conf
+      description: heimdal dev
+    - name: heimdal-libs
+      pipeline:
+        - uses: split/FIXME
+      description: heimdal FIXME
+    - name: heimdal-su
+      pipeline:
+        - uses: split/FIXME
+      description: heimdal FIXME
+    - name: heimdal-openrc
+      pipeline:
+        - uses: split/FIXME
+      description: heimdal FIXME

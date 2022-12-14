@@ -1,0 +1,35 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/py3-snowballstemmer/APKBUILD
+package:
+    name: py3-snowballstemmer
+    version: 2.2.0
+    epoch: 0
+    description: Snowball stemming library collection for Python3
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: BSD-3-Clause
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - py3-setuptools
+            - python3
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 09b16deb8547d3412ad7b590689584cd0fe25ec8db3be37788be3810cbf19cb1
+        uri: https://files.pythonhosted.org/packages/source/s/snowballstemmer/snowballstemmer-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install

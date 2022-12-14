@@ -1,0 +1,35 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/py3-imagesize/APKBUILD
+package:
+    name: py3-imagesize
+    version: 1.4.1
+    epoch: 0
+    description: Getting image size from png/jpeg/jpeg2000/gif file
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: MIT
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - py3-setuptools
+            - python3
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 69150444affb9cb0d5cc5a92b3676f0b2fb7cd9ae39e947a5e11a36b4497cd4a
+        uri: https://files.pythonhosted.org/packages/source/i/imagesize/imagesize-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install

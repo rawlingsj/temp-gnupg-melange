@@ -1,0 +1,64 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/elfutils/APKBUILD
+package:
+    name: elfutils
+    version: "0.188"
+    epoch: 0
+    description: Utilities and DSOs to handle ELF files and DWARF data
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: GPL-3.0-or-later AND (GPL-2.0-or-later OR LGPL-3.0-or-later)
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - bison
+            - flex-dev
+            - zlib-dev
+            - bzip2-dev
+            - xz-dev
+            - argp-standalone
+            - bsd-compat-headers
+            - libtool
+            - musl-fts-dev
+            - musl-obstack-dev
+            - linux-headers
+            - musl-libintl
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: fb8b0e8d0802005b9a309c60c1d8de32dd2951b56f0c3a3cb56d21ce01595dff
+        uri: https://sourceware.org/elfutils/ftp/${{package.version}}/elfutils-${{package.version}}.tar.bz2
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: libelf
+      pipeline:
+        - runs: FIXME
+    - name: libelf-static
+      pipeline:
+        - uses: split/static
+      description: elfutils static
+    - name: elfutils-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - elfutils
+      description: elfutils dev
+    - name: elfutils-doc
+      pipeline:
+        - uses: split/manpages
+      description: elfutils manpages

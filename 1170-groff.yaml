@@ -1,0 +1,42 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/groff/APKBUILD
+package:
+    name: groff
+    version: 1.22.4
+    epoch: 0
+    description: GNU troff text-formatting system
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: GPL-3.0-or-later
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - perl
+            - bison
+            - zlib-dev
+            - texinfo
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: e78e7b4cb7dec310849004fa88847c44701e8d133b5d4c13057d876c1bad0293
+        uri: https://ftp.gnu.org/gnu/groff/groff-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: groff-doc
+      pipeline:
+        - uses: split/manpages
+      description: groff manpages

@@ -1,0 +1,77 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/wayland/APKBUILD
+package:
+    name: wayland
+    version: 1.21.0
+    epoch: 0
+    description: A computer display server protocol
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: MIT
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - libffi-dev
+            - expat-dev
+            - libxml2-dev
+            - meson
+            - libffi-dev
+            - expat-dev
+            - wayland-libs-client
+            - wayland-libs-cursor
+            - wayland-libs-egl
+            - wayland-libs-server
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 6dc64d7fc16837a693a51cfdb2e568db538bfdc9f457d4656285bb9594ef11ac
+        uri: https://gitlab.freedesktop.org/wayland/wayland/-/releases/${{package.version}}/downloads/wayland-${{package.version}}.tar.xz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: wayland-dbg
+      pipeline:
+        - uses: split/FIXME
+      description: wayland FIXME
+    - name: wayland-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - wayland
+            - libffi-dev
+            - expat-dev
+            - wayland-libs-client
+            - wayland-libs-cursor
+            - wayland-libs-egl
+            - wayland-libs-server
+      description: wayland dev
+    - name: wayland-libs-client
+      pipeline:
+        - uses: split/FIXME
+      description: wayland FIXME
+    - name: wayland-libs-egl
+      pipeline:
+        - uses: split/FIXME
+      description: wayland FIXME
+    - name: wayland-libs-cursor
+      pipeline:
+        - uses: split/FIXME
+      description: wayland FIXME
+    - name: wayland-libs-server
+      pipeline:
+        - uses: split/FIXME
+      description: wayland FIXME

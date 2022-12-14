@@ -1,0 +1,47 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/iso-codes/APKBUILD
+package:
+    name: iso-codes
+    version: 4.12.0
+    epoch: 0
+    description: ISO codes and their translations
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: LGPL-2.1-or-later
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - python3
+            - gettext
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 650f050c3553adbf727e5ac74bd52a04ddc6b9f1bac79f1c041c02e581e209ad
+        uri: https://deb.debian.org/debian/pool/main/i/iso-codes/iso-codes_${{package.version}}.orig.tar.xz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: iso-codes-lang
+      pipeline:
+        - uses: split/FIXME
+      description: iso-codes FIXME
+    - name: iso-codes-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - iso-codes
+      description: iso-codes dev

@@ -1,0 +1,46 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/libksba/APKBUILD
+package:
+    name: libksba
+    version: 1.6.2
+    epoch: 0
+    description: Libksba is a CMS and X.509 access library
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: GPL-2.0-or-later OR GPL-3.0-or-later
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - libgpg-error-dev
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: fce01ccac59812bddadffacff017dac2e4762bdb6ebc6ffe06f6ed4f6192c971
+        uri: https://www.gnupg.org/ftp/gcrypt/libksba/libksba-${{package.version}}.tar.bz2
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: libksba-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - libksba
+      description: libksba dev
+    - name: libksba-doc
+      pipeline:
+        - uses: split/manpages
+      description: libksba manpages

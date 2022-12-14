@@ -1,0 +1,46 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/libepoxy/APKBUILD
+package:
+    name: libepoxy
+    version: 1.5.10
+    epoch: 0
+    description: Direct Rendering Manager runtime library
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: MIT
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - libx11-dev
+            - mesa-dev
+            - meson
+            - libx11-dev
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: a7ced37f4102b745ac86d6a70a9da399cc139ff168ba6b8002b4d8d43c900c15
+        uri: https://github.com/anholt/libepoxy/archive/refs/tags/${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: libepoxy-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - libepoxy
+            - libx11-dev
+      description: libepoxy dev

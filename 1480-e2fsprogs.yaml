@@ -1,0 +1,75 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/e2fsprogs/APKBUILD
+package:
+    name: e2fsprogs
+    version: 1.46.5
+    epoch: 0
+    description: Standard Ext2/3/4 filesystem utilities
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: GPL-2.0-or-later AND LGPL-2.0-or-later AND BSD-3-Clause AND MIT
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - util-linux-dev
+            - gawk
+            - linux-headers
+            - fuse-dev
+            - util-linux-dev
+            - gawk-dev
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 0286b718da1491c65c4e51453d33a25d5dad29b0964f915e627c363b4c11cb92
+        uri: https://github.com/tytso/e2fsprogs/archive/v${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: e2fsprogs-static
+      pipeline:
+        - uses: split/static
+      description: e2fsprogs static
+    - name: e2fsprogs-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - e2fsprogs
+            - util-linux-dev
+            - gawk
+      description: e2fsprogs dev
+    - name: libcom_err
+      pipeline:
+        - runs: FIXME
+    - name: fuse2fs
+      pipeline:
+        - runs: FIXME
+    - name: fuse2fs-doc
+      pipeline:
+        - uses: split/manpages
+      description: e2fsprogs manpages
+    - name: e2fsprogs-doc
+      pipeline:
+        - uses: split/manpages
+      description: e2fsprogs manpages
+    - name: e2fsprogs-libs
+      pipeline:
+        - uses: split/FIXME
+      description: e2fsprogs FIXME
+    - name: e2fsprogs-extra
+      pipeline:
+        - uses: split/FIXME
+      description: e2fsprogs FIXME

@@ -1,0 +1,53 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/libavif/APKBUILD
+package:
+    name: libavif
+    version: 0.11.1
+    epoch: 0
+    description: Library for encoding and decoding .avif files
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: BSD-2-Clause
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - aom-dev
+            - cmake
+            - dav1d-dev
+            - gtest-dev
+            - libjpeg-turbo-dev
+            - libpng-dev
+            - samurai
+            - zlib-dev
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 0eb49965562a0e5e5de58389650d434cff32af84c34185b6c9b7b2fccae06d4e
+        uri: https://github.com/AOMediaCodec/libavif/archive/v${{package.version}}/libavif-v${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: libavif-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - libavif
+      description: libavif dev
+    - name: libavif-apps
+      pipeline:
+        - uses: split/FIXME
+      description: libavif FIXME

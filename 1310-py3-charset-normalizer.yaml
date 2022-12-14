@@ -1,0 +1,35 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/py3-charset-normalizer/APKBUILD
+package:
+    name: py3-charset-normalizer
+    version: 3.0.1
+    epoch: 0
+    description: offers you an alternative to Universal Charset Encoding Detector, also known as Chardet
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: MIT
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - py3-setuptools
+            - python3
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: ebea339af930f8ca5d7a699b921106c6e29c617fe9606fa7baa043c1cdae326f
+        uri: https://files.pythonhosted.org/packages/source/c/charset-normalizer/charset-normalizer-${{package.version}}.tar.gz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install

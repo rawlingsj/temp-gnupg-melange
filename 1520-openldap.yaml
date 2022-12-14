@@ -1,0 +1,252 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/openldap/APKBUILD
+package:
+    name: openldap
+    version: 2.6.3
+    epoch: 0
+    description: LDAP Server
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: OLDAP-2.8
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - cyrus-sasl-dev
+            - libevent-dev
+            - libsodium-dev
+            - util-linux-dev
+            - autoconf
+            - automake
+            - db-dev
+            - groff
+            - libtool
+            - mosquitto-dev
+            - openssl-dev
+            - unixodbc-dev
+            - cyrus-sasl-dev
+            - libevent-dev
+            - libsodium-dev
+            - util-linux-dev
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: d2a2a1d71df3d77396b1c16ad7502e674df446e06072b0e5a4e941c3d06c0d46
+        uri: https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-${{package.version}}.tgz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: openldap-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - openldap
+            - cyrus-sasl-dev
+            - libevent-dev
+            - libsodium-dev
+            - util-linux-dev
+      description: openldap dev
+    - name: openldap-doc
+      pipeline:
+        - uses: split/manpages
+      description: openldap manpages
+    - name: libldap
+      pipeline:
+        - runs: FIXME
+    - name: openldap-lloadd
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-lloadd-openrc
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-clients
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-passwd-argon2
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-passwd-pbkdf2
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-passwd-sha2
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-backend-all
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-all
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-openrc
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-back-asyncmeta
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-back-dnssrv
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-back-ldap
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-back-lload
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-back-mdb
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-back-meta
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-back-null
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-back-passwd
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-back-relay
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-back-sock
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-back-sql
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-accesslog
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-auditlog
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-autoca
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-collect
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-constraint
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-dds
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-deref
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-dyngroup
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-dynlist
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-homedir
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-lastbind
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-memberof
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-mqtt
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-otp
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-ppolicy
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-proxycache
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-refint
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-remoteauth
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-retcode
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-rwm
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-seqmod
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-sssvlv
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-syncprov
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-translucent
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-unique
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME
+    - name: openldap-overlay-valsort
+      pipeline:
+        - uses: split/FIXME
+      description: openldap FIXME

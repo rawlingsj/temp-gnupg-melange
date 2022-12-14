@@ -1,0 +1,65 @@
+# Generated from https://git.alpinelinux.org/aports/plain/main/harfbuzz/APKBUILD
+package:
+    name: harfbuzz
+    version: 5.3.1
+    epoch: 0
+    description: Text shaping library
+    target-architecture:
+        - all
+    copyright:
+        - paths:
+            - '*'
+          attestation: TODO
+          license: MIT
+environment:
+    contents:
+        repositories:
+            - https://packages.wolfi.dev/os
+        keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+        packages:
+            - busybox
+            - ca-certificates-bundle
+            - build-base
+            - automake
+            - autoconf
+            - cairo-dev
+            - freetype-dev
+            - glib-dev
+            - gobject-introspection-dev
+            - graphite2-dev
+            - gtk-doc
+            - icu-dev
+            - meson
+pipeline:
+    - uses: fetch
+      with:
+        expected-sha256: 4a6ce097b75a8121facc4ba83b5b083bfec657f45b003cd5a3424f2ae6b4434d
+        uri: https://github.com/harfbuzz/harfbuzz/releases/download/${{package.version}}/harfbuzz-${{package.version}}.tar.xz
+    - uses: autoconf/configure
+    - uses: autoconf/make
+    - uses: autoconf/make-install
+subpackages:
+    - name: harfbuzz-static
+      pipeline:
+        - uses: split/static
+      description: harfbuzz static
+    - name: harfbuzz-dev
+      pipeline:
+        - uses: split/dev
+      dependencies:
+        runtime:
+            - harfbuzz
+      description: harfbuzz dev
+    - name: harfbuzz-icu
+      pipeline:
+        - uses: split/FIXME
+      description: harfbuzz FIXME
+    - name: harfbuzz-utils
+      pipeline:
+        - uses: split/FIXME
+      description: harfbuzz FIXME
+    - name: harfbuzz-doc
+      pipeline:
+        - uses: split/manpages
+      description: harfbuzz manpages
